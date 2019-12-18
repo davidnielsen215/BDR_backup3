@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const initialState = {
-    todos: [],
+    subscriptions: [],
     user: {
     username: "",
     isAdmin: false,

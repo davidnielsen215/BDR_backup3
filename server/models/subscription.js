@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const todoSchema = new Schema({
+const subscriptionSchema = new Schema({
     title: {
         type: String,
         required: true
@@ -17,4 +17,4 @@ const todoSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model("Todo", todoSchema); 
+module.exports = mongoose.model("Subscription", subscriptionSchema); 

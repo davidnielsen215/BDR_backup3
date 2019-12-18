@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import AddTodoForm from "./AddTodoForm";
+import AddSubscriptionForm from "./AddSubscriptionForm";
 import {connect} from "react-redux";
-import {addTodo} from "../../redux/todos";
+import {addSubscription} from "../../redux/subscription";
 
-class AddTodoFormContainer extends Component {
+class AddSubscriptionFormContainer extends Component {
     constructor() {
         super();
         this.state = {
@@ -35,13 +35,13 @@ class AddTodoFormContainer extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.addTodo(this.state.inputs);
+        this.props.addSubscription(this.state.inputs);
         this.clearInputs()
     }
 
     render() {
         return (
-            <AddTodoForm
+            <AddSubscriptionForm
                 handleChange={this.handleChange.bind(this)}
                 handleSubmit={this.handleSubmit.bind(this)}
                 {...this.state.inputs} />
@@ -49,4 +49,4 @@ class AddTodoFormContainer extends Component {
     }
 }
 
-export default connect(null, {addTodo})(AddTodoFormContainer);
+export default connect(null, {addSubscription})(AddSubscriptionFormContainer);

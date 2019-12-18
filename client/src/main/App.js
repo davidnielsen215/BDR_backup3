@@ -8,7 +8,7 @@ import '../styles/signup.css'
 import ProtectedRoute from "./ProtectedRoute"
 import Signup from "./Signup";
 import Login from "./Login";
-import TodoList from "./Todos";
+import SubscriptionList from "./Subscriptions";
 import Profile from "./Profile";
 
 class App extends Component {
@@ -36,7 +36,7 @@ class App extends Component {
                             <Redirect to="/profile"/> :
                             <Login {...props}/>
                         } />
-                        <ProtectedRoute path="/todos" component={TodoList}/>
+                        <ProtectedRoute path="/subscriptions" component={SubscriptionList}/>
                         <ProtectedRoute path="/profile" component={Profile}/>
                 </Switch>
                 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../styles/signup.css'
 
-function AddTodoForm(props) {
+function AddSubscriptionForm(props) {
     return (
         <div className='sub-form'>
             <form onSubmit={props.handleSubmit}>
@@ -22,4 +22,4 @@ function AddTodoForm(props) {
     )
 }
 
-export default AddTodoForm;
+export default AddSubscriptionForm;
