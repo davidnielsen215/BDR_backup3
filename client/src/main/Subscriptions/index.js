@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import TodoList from "./TodoList";
+import SubscriptionList from "./SubscriptionList";
 import {connect} from "react-redux";
-import {loadTodos} from "../../redux/todos";
+import {loadSubscriptions} from "../../redux/subscription";
 
-class TodoListContainer extends Component {
+class SubscriptionListContainer extends Component {
 
     componentDidMount() {
-        this.props.loadTodos();
+        this.props.loadSubscriptions();
     }
 
     handleChange(e) {
@@ -31,14 +31,14 @@ class TodoListContainer extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.props.addTodo(this.state.inputs);
+        this.props.addSubscription(this.state.inputs);
         this.clearInputs()
     }
 
     render() {
         return (
-            <TodoList
-                todos={this.props.todos}/>
+            <SubscriptionList
+            subscriptions={this.props.subscriptions}/>
         )
     }
 }
@@ -47,4 +47,4 @@ const mapStateToProps = state => {
     return state;
 }
 
-export default connect(mapStateToProps, {loadTodos})(TodoListContainer)
+export default connect(mapStateToProps, {loadSubscriptions})(SubscriptionListContainer)

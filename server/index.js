@@ -21,7 +21,7 @@ mongoose.connect("mongodb://localhost/bdr-subscription",
 );
 
 app.use("/api", expressJwt({secret: process.env.SECRET}));
-app.use("/api/todo", require("./routes/todo"));
+app.use("/api/subscription", require("./routes/subscription"));
 app.use("/api/profile", require("./routes/profile"));
 
 app.use("/auth", require("./routes/auth"));
