@@ -1,19 +1,22 @@
 import React from 'react';
 import SubscriptionContainer from "./SubscriptionContainer";
-import SubscriptionFormContainer from "./AddSubscriptionFormContainer";
+import AddSubscriptionFormContainer from "./AddSubscriptionFormContainer";
+
+//BORDER COLOR = RED
 
 function SubscriptionList(props) {
     const subscriptions = props.subscriptions.map(subscription => {
         return (
             <SubscriptionContainer
                 key={subscription._id}
-                subscription={subscription}/>
+                subscription={subscription}
+            />
         )
     })
 
     return (
-        <div>
-            <SubscriptionFormContainer/>
+        <div style={{border: '5px solid red'}}>
+            <AddSubscriptionFormContainer/>
             {subscriptions}
         </div>
     )

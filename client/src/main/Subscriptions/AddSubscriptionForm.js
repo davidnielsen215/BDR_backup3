@@ -4,7 +4,8 @@ import '../../styles/signup.css'
 function AddSubscriptionForm(props) {
     return (
         <div className='sub-form'>
-            <form onSubmit={props.handleSubmit}>
+            <form onSubmit={props.handleSubmit}
+            style={{border: '5px solid pink',margin: '3px'}}>
                 <h4>Select Your Subcription Plan</h4>
 
                 <input
@@ -13,7 +14,7 @@ function AddSubscriptionForm(props) {
                     value={props.title}
                     onChange={props.handleChange}
                     type="text"
-                    placeholder="Title"/>
+                    placeholder="Type"/>
                     <br/>
 
                 <button type="submit">Add</button>
