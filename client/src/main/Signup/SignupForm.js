@@ -45,7 +45,9 @@ function SignupForm(props) {
                     onChange={props.handleChange}
                     value={props.phone}
                     name="phone"
-                    type="number"
+                    type="tel"
+                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                    maxLength="10"
                     placeholder="Phone Number"/>
                     <br/>
                     
