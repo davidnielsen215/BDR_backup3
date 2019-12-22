@@ -46,7 +46,7 @@ function SignupForm(props) {
                     value={props.phone}
                     name="phone"
                     type="tel"
-                    pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                    // pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                     maxLength="10"
                     placeholder="Phone Number"/>
                     <br/>
