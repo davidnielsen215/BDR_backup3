@@ -2,7 +2,7 @@ import React from 'react';
 
 function Subscription(props) {
     return (
-        <div style={{border: '5px solid lime',margin: '3px'}}>
+        <div style={{border: '5px solid blue',margin: '3px'}}>
             <h3>{props.subscription.title}</h3>
             <input
                 onChange={props.handleCompleted}
