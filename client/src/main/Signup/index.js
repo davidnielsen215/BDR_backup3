@@ -12,9 +12,7 @@ class SignupFormContainer extends Component {
                 username: "",
                 password: "",
                 firstname: "",
-                // lastname: "",
                 website: "",
-                // company: "",
                 phone: "",
             }
         }
@@ -48,6 +46,7 @@ class SignupFormContainer extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
+        // this.props.exeEmail(this.state.inputs);
         this.props.signup(this.state.inputs);
         this.clearInputs();
         const key = '4d2b081d-ba0b-4671-9284-177c7f957f21'
@@ -56,7 +55,6 @@ class SignupFormContainer extends Component {
         Axios({
             method: 'post',
             url: baseUrl,
-            // headers:{ Authorization: `Bearer ${localStorage.getItem('token')}`},
             data: {
                 "properties": [
                     {
@@ -83,6 +81,7 @@ class SignupFormContainer extends Component {
             console.log('Failed to post contact')
             console.log(err)
         })
+        
     }
 
     render() {

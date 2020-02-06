@@ -16,6 +16,10 @@ const userSchema = new Schema({
     isAdmin: {
         type: Boolean,
         default: false
+    },
+    isValidated: {
+        type: Boolean, 
+        default: false
     }
 });
 

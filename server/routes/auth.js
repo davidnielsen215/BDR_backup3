@@ -33,4 +33,10 @@ authRouter.post("/login", (req, res) => {
     });
 });
 
+authRouter.put('/validate', (req, res) => {
+    User.findOneAndUpdate({name: req.body.name}, {isValidated: true}, {useFindAndModify: false})
+    .then(user => res.send(user)) 
+    .catch(err => res.status(404).json({success: false}))
+})
+
 module.exports = authRouter;

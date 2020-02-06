@@ -10,6 +10,7 @@ import Signup from "./Signup";
 import Login from "./Login";
 import SubscriptionList from "./Subscriptions";
 import Profile from "./Profile";
+import Validate from './Validate'
 
 class App extends Component {
 
@@ -36,6 +37,7 @@ class App extends Component {
                             <Redirect to="/profile"/> :
                             <Login {...props}/>
                         } />
+                        <Route path ='/validate' component={Validate}/>
                         <ProtectedRoute path="/subscriptions" component={SubscriptionList}/>
                         <ProtectedRoute path="/profile" component={Profile}/>
                 </Switch>

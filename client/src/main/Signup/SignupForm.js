@@ -1,8 +1,6 @@
 import React from 'react'
 import '../../styles/signup.css';
 
-
-
 function SignupForm(props) {
     return (
         <div className="form-wrapper">
@@ -46,7 +44,6 @@ function SignupForm(props) {
                     value={props.phone}
                     name="phone"
                     type="tel"
-                    // pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                     maxLength="10"
                     placeholder="Phone Number"/>
                     <br/>

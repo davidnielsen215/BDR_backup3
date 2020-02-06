@@ -44,6 +44,8 @@ export function verify() {
     }
 }
 
+
+
 export default function reducer(state = initialState, action) {
     switch (action.type) {
         case "AUTH_ERROR":
@@ -90,14 +92,51 @@ export function signup(userInfo) {
                 const { token, user } = response.data;
                 localStorage.token = token
                 localStorage.user = JSON.stringify(user);
-                dispatch(authenticate(user));
+                // dispatch(authenticate(user));
             })
             .catch(err => {
                 console.error(err);
                 dispatch(authError("signup", err.response.status))
             })
+            const port = process.env.Port || 5001
+
+            const recipient = userInfo.username
+            const sender = 'test@bestdealretailer.com'
+            const subject = 'Validate your Email'
+            const text = 'Thank you for signing up with Best Deal Retailer. Please click the link and follow the instructions to validate your account'
+            fetch(`http://127.0.0.1:${port}/send-email?recipient=${recipient}&sender=${sender}&topic=${subject}&text=${text}`)
+            .then(console.log('succesfully sent email'))
+            .catch(err => console.error(err))
     }
 }
+
+export function validate(userInfo){
+    return dispatch => {
+        axios.post("/auth/login", userInfo)
+        .then(response => {
+            const { user } = response.data;
+            dispatch(authenticate(user));
+        })
+        .catch(err => {
+            console.error(err);
+            dispatch(authError("signup", err.response.status))
+        })
+    }
+}
+
+// export function exeEmail(userInfo){
+    
+//     const port = process.env.Port || 5001
+
+//     const recipient = userInfo.username
+//             const sender = 'test@bestdealretailer.com'
+//             const subject = 'Validate your Email'
+//             const text = 'Thank you for signing up with Best Deal Retailer. Please click the link and follow the instructions to validate your account'
+//             fetch(`http://127.0.0.1:${port}/send-email?recipient=${recipient}&sender=${sender}&topic=${subject}&text=${text}`)
+//             .then(console.log('succesfully sent email'))
+//             .catch(err => console.error(err))
+    
+// }
 
 export function login(credentials) {
     return dispatch => {

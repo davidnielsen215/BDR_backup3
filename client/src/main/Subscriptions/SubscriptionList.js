@@ -15,7 +15,7 @@ function SubscriptionList(props) {
     })
 
     return (
-        <div style={{border: '5px solid red'}}>
+        <div style={{border: '5px solid lime'}}>
             <AddSubscriptionFormContainer/>
             {subscriptions}
         </div>

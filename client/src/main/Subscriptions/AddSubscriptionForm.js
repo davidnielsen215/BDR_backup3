@@ -5,7 +5,7 @@ function AddSubscriptionForm(props) {
     return (
         <div className='sub-form'>
             <form onSubmit={props.handleSubmit}
-            style={{border: '5px solid pink',margin: '3px'}}>
+            style={{border: '5px solid magenta',margin: '3px'}}>
                 <h4>Select Your Subcription Plan</h4>
 
                 <input
