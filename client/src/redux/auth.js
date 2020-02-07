@@ -12,6 +12,7 @@ const initialState = {
         login: ""
     },
     isAuthenticated: false,
+    authenticationMsg: '',
     loading: true
 }
 
@@ -21,6 +22,13 @@ function authError(key, errCode) {
         type: "AUTH_ERROR",
         key,
         errCode,
+    }
+}
+
+function validation(user){
+    return{
+        type: "VALIDATE",
+        user
     }
 }
 
@@ -63,6 +71,15 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 ...action.user,
                 isAuthenticated: true,
+                authErrCode: initialState.authErrCode,
+                loading: false
+            }
+
+        case "VALIDATE":
+            return{
+                ...state,
+                ...action.user,
+                isValidated: true,
                 authErrCode: initialState.authErrCode,
                 loading: false
             }
@@ -112,10 +129,13 @@ export function signup(userInfo) {
 
 export function validate(userInfo){
     return dispatch => {
-        axios.post("/auth/login", userInfo)
+        axios.put("/auth/validate", userInfo)
         .then(response => {
-            const { user } = response.data;
-            dispatch(authenticate(user));
+            const { user, token } = response.data;
+            localStorage.token = token
+            localStorage.user = JSON.stringify(user);
+            dispatch(validation(user));
+            dispatch(authenticate(user))
         })
         .catch(err => {
             console.error(err);
@@ -123,20 +143,6 @@ export function validate(userInfo){
         })
     }
 }
-
-// export function exeEmail(userInfo){
-    
-//     const port = process.env.Port || 5001
-
-//     const recipient = userInfo.username
-//             const sender = 'test@bestdealretailer.com'
-//             const subject = 'Validate your Email'
-//             const text = 'Thank you for signing up with Best Deal Retailer. Please click the link and follow the instructions to validate your account'
-//             fetch(`http://127.0.0.1:${port}/send-email?recipient=${recipient}&sender=${sender}&topic=${subject}&text=${text}`)
-//             .then(console.log('succesfully sent email'))
-//             .catch(err => console.error(err))
-    
-// }
 
 export function login(credentials) {
     return dispatch => {

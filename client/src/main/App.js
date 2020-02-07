@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import {connect} from "react-redux";
 import { verify } from "../redux/auth";
+import {validate} from '../redux/auth'
 import '../styles/signup.css'
 
 import ProtectedRoute from "./ProtectedRoute"
@@ -16,11 +17,12 @@ class App extends Component {
 
     componentDidMount(){
         this.props.verify();
+        this.props.validate
     }
 
     render() {
 
-        const {isAuthenticated, loading} = this.props;
+        const {isAuthenticated, isValidated, loading} = this.props;
 
         return (
             
@@ -29,15 +31,18 @@ class App extends Component {
                 {loading ? 
                 <div><i><p>...Loading User Data</p></i></div>:
                 <Switch>
-                        <Route exact path="/" render={ props => isAuthenticated ? 
-                            <Redirect to="/profile"/> :
-                            <Signup {...props}/>
+                        <Route exact path="/" render={ props => isValidated ? 
+                            <Redirect to="/validate"/> :
+                            <Validate {...props}/>
                         }/>
-                        <Route path="/login" render={ props => isAuthenticated ?
+                        <Route path="/login" render={ props => isAuthenticated && isValidated ?
                             <Redirect to="/profile"/> :
                             <Login {...props}/>
                         } />
-                        <Route path ='/validate' component={Validate}/>
+                        <Route path ='/validate' render={props => isValidated ?
+                            <Redirect to='/profile'/> :
+                            <Validate {...props}/>
+                            } />
                         <ProtectedRoute path="/subscriptions" component={SubscriptionList}/>
                         <ProtectedRoute path="/profile" component={Profile}/>
                 </Switch>
@@ -48,4 +53,4 @@ class App extends Component {
     }
 }
 
-export default withRouter(connect(state => state.auth,{verify})(App));
+export default withRouter(connect(state => state.auth,{verify, validate})(App));

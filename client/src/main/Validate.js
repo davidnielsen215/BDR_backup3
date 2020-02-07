@@ -5,8 +5,12 @@ import {validate} from '../redux/auth'
 
 
  class Validate extends Component {
-    state = {
-        username: ''
+     constructor() {
+         super()
+         this.state = {
+             username: ''
+         }
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     handleChange = input => e => {
@@ -31,4 +35,4 @@ import {validate} from '../redux/auth'
     }
 }
 
-export default connect(state => state.auth, {validate})(Validate)
+export default connect(state => state.auth, { validate })(Validate)
