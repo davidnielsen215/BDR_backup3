@@ -12,7 +12,7 @@ const initialState = {
         login: ""
     },
     isAuthenticated: false,
-    authenticationMsg: '',
+    isValidated: false,
     loading: true
 }
 
@@ -102,6 +102,23 @@ export function authenticate(user) {
     
 }
 
+export function checkValid(userInfo) {
+    return dispatch => {
+    axios.post("/auth/login", userInfo)
+    .then(response => {
+        const { user, token } = response.data;
+        localStorage.token = token
+        localStorage.user = JSON.stringify(user);
+        // dispatch(validation(user));
+        // dispatch(authenticate(user))
+    })
+    .catch(err => {
+        console.error(err);
+        // dispatch(authError("signup", err.response.status))
+    })
+}
+}
+
 export function signup(userInfo) {
     return dispatch => {
         axios.post("/auth/signup", userInfo)
@@ -109,18 +126,18 @@ export function signup(userInfo) {
                 const { token, user } = response.data;
                 localStorage.token = token
                 localStorage.user = JSON.stringify(user);
-                // dispatch(authenticate(user));
+                dispatch(authenticate(user));
             })
             .catch(err => {
                 console.error(err);
                 dispatch(authError("signup", err.response.status))
             })
             const port = process.env.Port || 5001
-
+            const validationUrl = 'http://localhost:3000/validate'
             const recipient = userInfo.username
             const sender = 'test@bestdealretailer.com'
             const subject = 'Validate your Email'
-            const text = 'Thank you for signing up with Best Deal Retailer. Please click the link and follow the instructions to validate your account'
+            const text = `Thank you for signing up with Best Deal Retailer. Please click the link and follow the instructions to validate your account: ${validationUrl}`
             fetch(`http://127.0.0.1:${port}/send-email?recipient=${recipient}&sender=${sender}&topic=${subject}&text=${text}`)
             .then(console.log('succesfully sent email'))
             .catch(err => console.error(err))
@@ -134,8 +151,8 @@ export function validate(userInfo){
             const { user, token } = response.data;
             localStorage.token = token
             localStorage.user = JSON.stringify(user);
-            dispatch(validation(user));
-            dispatch(authenticate(user))
+            // dispatch(validation(user));
+            // dispatch(authenticate(user))
         })
         .catch(err => {
             console.error(err);
