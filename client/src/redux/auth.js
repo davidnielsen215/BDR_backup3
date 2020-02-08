@@ -25,12 +25,6 @@ function authError(key, errCode) {
     }
 }
 
-function validation(user){
-    return{
-        type: "VALIDATE",
-        user
-    }
-}
 
 const profileAxios = axios.create();
 profileAxios.interceptors.request.use(config => {
@@ -50,6 +44,21 @@ export function verify() {
                 dispatch(authError("verify", err.response.status))
             })
     }
+}
+
+export function checkValid() {
+    return dispatch => {
+        profileAxios.get("/api/profile")
+    .then(response => {
+        let { user } = response.data;        
+        if(user.isValidated === true){
+            dispatch(validation(user))
+        }else(console.log('missing requirement: email validation'))
+    })
+    .catch(err => {
+        console.error(err);
+    })
+}
 }
 
 
@@ -102,22 +111,14 @@ export function authenticate(user) {
     
 }
 
-export function checkValid(userInfo) {
-    return dispatch => {
-    axios.post("/auth/login", userInfo)
-    .then(response => {
-        const { user, token } = response.data;
-        localStorage.token = token
-        localStorage.user = JSON.stringify(user);
-        // dispatch(validation(user));
-        // dispatch(authenticate(user))
-    })
-    .catch(err => {
-        console.error(err);
-        // dispatch(authError("signup", err.response.status))
-    })
+function validation(user){
+    return{
+        type: "VALIDATE",
+        user
+    }
 }
-}
+
+
 
 export function signup(userInfo) {
     return dispatch => {
@@ -133,7 +134,7 @@ export function signup(userInfo) {
                 dispatch(authError("signup", err.response.status))
             })
             const port = process.env.Port || 5001
-            const validationUrl = 'http://localhost:3000/validate'
+            const validationUrl = 'http://localhost:3001/validate'
             const recipient = userInfo.username
             const sender = 'test@bestdealretailer.com'
             const subject = 'Validate your Email'

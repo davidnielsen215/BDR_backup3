@@ -26,6 +26,15 @@
     /* align-items: center; */
   }
 
+  .nav-link2{
+    background-color: rgb(0, 156, 52);
+    color: white;
+    padding: 5px 1em;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 3px;
+  }
+
   .nav-link{
     background-color: rgb(0, 156, 52);
     color: white;
@@ -35,6 +44,21 @@
     border-radius: 3px;
   }
 
+  .nav-btn{
+    background-color: rgb(161, 59, 59);
+    width: 10vw;
+    height: 3vh;
+    color: white;
+    padding: 5px 1em;
+    text-decoration: none;
+    text-transform: uppercase;
+    border-radius: 3px;
+  }
+
+  .nav-btn:hover{
+    background-color: rgb(110, 34, 34);
+    cursor: pointer;
+  }
   .nav-link:hover{
     transition: .5s;
     background-color: rgb(3, 112, 39);
@@ -53,12 +77,19 @@
   .form-btn{
     text-align: center;
     padding-left: 10px;
-    height: 30px;
+    background-color: rgb(0, 129, 108);
+    color: white;
+    height: 5vh;
     width: 25vw;
     font-size: 1.4vw;
     margin-top: 20px;
     border-radius: 5px;
     margin-bottom: 3%;
+  }
+
+  .form-btn:hover{
+    background-color: rgb(0, 86, 88);
+    cursor: pointer;
   }
 
   .form-wrapper{

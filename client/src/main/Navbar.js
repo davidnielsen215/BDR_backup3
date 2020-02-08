@@ -5,18 +5,21 @@ import {logout} from "../redux/auth";
 import '../styles/signup.css'
 
 function Navbar(props) {
-    const { isAuthenticated } = props
+    const { isAuthenticated, isValidated } = props
     return (
             
         <div className="navbar-wrapper">
             {!isAuthenticated && <div><Link to="/" className="nav-link">Sign Up</Link></div>}
             {!isAuthenticated && <div><Link to="/login" className="nav-link">Log In</Link></div>}
-            {isAuthenticated && <div><Link to="/subscriptions" className="nav-link">Dashboard</Link></div>}
-            {isAuthenticated &&<div><Link to="/profile" className="nav-link">Profile</Link></div>}
+            {isAuthenticated && isValidated && <div><Link to="/subscriptions" className="nav-link2">Dashboard</Link></div>}
+            {isAuthenticated && isValidated && <div><Link to="/profile" className="nav-link2">Profile</Link></div>}
+            {isAuthenticated && !isValidated && <div><Link to="/" className="nav-link">Sign Up</Link></div>}
+            {isAuthenticated && !isValidated && <div><Link to="/login" className="nav-link">Log In</Link></div>}
             <div>
             {/* <button onClick={props.logout}>Logout</button> */}
 
-            {isAuthenticated &&<button onClick={props.logout}>Logout</button>}
+            {isAuthenticated && isValidated &&<button className='nav-btn' onClick={props.logout}>Logout</button>}
+            {/* {isAuthenticated && !isValidated &&<button onClick={props.logout}>Logout</button>} */}
             </div>
         </div>
     )

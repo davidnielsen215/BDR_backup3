@@ -4,7 +4,7 @@ import { Route, Switch, withRouter, Redirect } from "react-router-dom";
 import {connect} from "react-redux";
 import { verify } from "../redux/auth";
 import {checkValid} from '../redux/auth'
-import {isValidated} from '../redux/auth'
+// import {isValidated} from '../redux/auth'
 import '../styles/signup.css'
 
 import ProtectedRoute from "./ProtectedRoute"
@@ -33,21 +33,24 @@ class App extends Component {
                 {loading ? 
                 <div><i><p>...Loading User Data</p></i></div>:
                 <Switch>
-                        <Route exact path="/" render={ props => isAuthenticated  ? 
+                        <Route exact path="/" render={ props => isAuthenticated&&isValidated ? 
                             <Redirect to="/profile"/> :
                             <Signup {...props} />
                         }/>
-                        <Route path="/login" render={ props => isAuthenticated ?
+                        <Route path="/login" render={ props => isAuthenticated&&isValidated ?
                             <Redirect to="/profile"/> :
-                            <Login {...props}/>
+                            <Login {...props}/> 
                         } />
-                        <Route path ='/validate' render={props => isValidated ?
+                        <Route path ='/validate' render={props => isValidated&&isAuthenticated ?
                             <Redirect to='/profile'/> :
                             <Validate {...props} />
                             } />
+                        <Route path ='/emailMsg' render={ props => isValidated&&isAuthenticated ?
+                            <Redirect to='/profile'/> :
+                            <EmailMsg {...props}/>
+                            } />
                         <ProtectedRoute path="/subscriptions" component={SubscriptionList}/>
                         <ProtectedRoute path="/profile" component={Profile}/>
-                        <Route path ='/emailMsg' component={EmailMsg} />
                 </Switch>
                 }
             </div>

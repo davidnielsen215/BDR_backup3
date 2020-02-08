@@ -81,7 +81,7 @@ class SignupFormContainer extends Component {
             console.log('Failed to post contact')
             console.log(err)
         })
-        
+        .then(this.props.history.push('/emailMsg'))
     }
 
     render() {

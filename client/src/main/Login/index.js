@@ -9,7 +9,8 @@ class LoginFormContainer extends Component {
         this.state = {
             inputs: {
                 username: "",
-                password: ""
+                password: "",
+                validationErr: ''
             }
         }
     }
@@ -36,16 +37,23 @@ class LoginFormContainer extends Component {
     }
 
     handleSubmit(e) {
+        let isValidated = this.props.isValidated
+        let isAuthenticated = this.props.isAuthenticated
+
         e.preventDefault();
         this.props.login(this.state.inputs);
         this.clearInputs();
+        if (isAuthenticated&&!isValidated) {
+            this.setState({validationErr : "Please validate email before accessing account"})
+        } 
     }
 
     render() {
         let authErrCode = this.props.authErrCode.login
         let errMsg = ""
+        const {validationErr} = this.state
         if (authErrCode < 500 && authErrCode > 399) {
-            errMsg = "Invalid email or password";
+            errMsg = "Username and Password do not match";
         } else if (authErrCode > 499) {
             errMsg = "Server error";
         }
@@ -54,7 +62,10 @@ class LoginFormContainer extends Component {
                 handleChange={this.handleChange.bind(this)}
                 handleSubmit={this.handleSubmit.bind(this)}
                 errMsg={errMsg}
+                validationErr={validationErr}
                 {...this.state.inputs} />
+            
+
         )
     }
 }

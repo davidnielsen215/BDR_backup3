@@ -25,6 +25,7 @@ function LoginForm(props) {
                     <br/>
                 <button className="form-btn" type="submit">Submit</button>
                 <p>{props.errMsg}</p>
+                <p>{props.validationErr}</p>
             </form>
         </div>
     )

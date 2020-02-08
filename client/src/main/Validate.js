@@ -8,7 +8,8 @@ import {validate} from '../redux/auth'
      constructor() {
          super()
          this.state = {
-             username: ''
+             username: '',
+             success: ''
          }
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -20,6 +21,9 @@ import {validate} from '../redux/auth'
     handleSubmit(e){
         e.preventDefault(e)
         this.props.validate(this.state.username)
+        this.setState({
+            success: 'successfully validated email, please login to continue'
+        })
     }
 
     render() {
@@ -27,9 +31,10 @@ import {validate} from '../redux/auth'
             <div>
                 
                 <h2>enter email to validate your account</h2>
-                <input label='email' onChange={this.handleChange('username')}></input>
+                <input label='email' onChange={this.handleChange('username')} className = "account-input"/>
                 <br/>
-                <button onClick={this.handleSubmit}>validate</button>
+                <button onClick={this.handleSubmit} className="form-btn">validate</button>
+                <p>{this.state.success}</p>
             </div>
         )
     }
