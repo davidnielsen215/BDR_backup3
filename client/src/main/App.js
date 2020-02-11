@@ -19,7 +19,7 @@ class App extends Component {
 
     componentDidMount(){
         this.props.verify();
-        this.props.checkValid()
+        // this.props.checkValid()
     }
 
     render() {

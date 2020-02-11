@@ -6,13 +6,13 @@ const initialState = {
     username: "",
     isAdmin: false,
     _id: ""
-    },
-    authErrCode: {
-        signup: "",
-        login: ""
-    },
-    isAuthenticated: false,
+},
+authErrCode: {
+    signup: "",
+    login: ""
+},
     isValidated: false,
+    isAuthenticated: false,
     loading: true
 }
 
@@ -134,7 +134,7 @@ export function signup(userInfo) {
                 dispatch(authError("signup", err.response.status))
             })
             const port = process.env.Port || 5001
-            const validationUrl = 'http://localhost:3001/validate'
+            const validationUrl = 'http://localhost:3000/validate'
             const recipient = userInfo.username
             const sender = 'test@bestdealretailer.com'
             const subject = 'Validate your Email'
@@ -149,11 +149,10 @@ export function validate(userInfo){
     return dispatch => {
         axios.put("/auth/validate", userInfo)
         .then(response => {
-            const { user, token } = response.data;
-            localStorage.token = token
-            localStorage.user = JSON.stringify(user);
-            // dispatch(validation(user));
+            const { user } = response.data;
+            dispatch(validation(user));
             // dispatch(authenticate(user))
+            console.log('put request to the db success')
         })
         .catch(err => {
             console.error(err);

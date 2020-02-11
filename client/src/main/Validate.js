@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 // import Axios from 'axios'
 import {connect} from 'react-redux'
 import {validate} from '../redux/auth'
+import {logout} from '../redux/auth'
 
 
  class Validate extends Component {
@@ -9,9 +10,14 @@ import {validate} from '../redux/auth'
          super()
          this.state = {
              username: '',
+             password: '',
              success: ''
          }
         this.handleSubmit = this.handleSubmit.bind(this)
+    }
+
+    componentDidMount(){
+        this.props.logout()
     }
 
     handleChange = input => e => {
@@ -21,9 +27,7 @@ import {validate} from '../redux/auth'
     handleSubmit(e){
         e.preventDefault(e)
         this.props.validate(this.state.username)
-        this.setState({
-            success: 'successfully validated email, please login to continue'
-        })
+        
     }
 
     render() {
@@ -31,7 +35,9 @@ import {validate} from '../redux/auth'
             <div>
                 
                 <h2>enter email to validate your account</h2>
-                <input label='email' onChange={this.handleChange('username')} className = "account-input"/>
+                <input placeholder='email' onChange={this.handleChange('username')} className = "account-input"/>
+                <br/>
+                {/* <input placeholder='password' type="password" onChange={this.handleChange('password')} className = "account-input"/> */}
                 <br/>
                 <button onClick={this.handleSubmit} className="form-btn">validate</button>
                 <p>{this.state.success}</p>
@@ -40,4 +46,4 @@ import {validate} from '../redux/auth'
     }
 }
 
-export default connect(state => state.auth, { validate })(Validate)
+export default connect(state => state.auth, { validate, logout })(Validate)

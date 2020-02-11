@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import LoginForm from "./LoginForm";
 import {connect} from "react-redux";
 import {login} from "../../redux/auth";
+import {checkValid} from '../../redux/auth'
 
 class LoginFormContainer extends Component {
     constructor() {
@@ -43,6 +44,7 @@ class LoginFormContainer extends Component {
         e.preventDefault();
         this.props.login(this.state.inputs);
         this.clearInputs();
+        this.props.checkValid()
         if (isAuthenticated&&!isValidated) {
             this.setState({validationErr : "Please validate email before accessing account"})
         } 
@@ -70,4 +72,4 @@ class LoginFormContainer extends Component {
     }
 }
 
-export default connect(state => state.auth, { login })(LoginFormContainer);
+export default connect(state => state.auth, { login, checkValid })(LoginFormContainer);

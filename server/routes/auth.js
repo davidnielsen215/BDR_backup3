@@ -40,4 +40,5 @@ authRouter.put('/validate', (req, res) => {
     .catch(err => res.status(404).json({success: false})).then(console.log('failed to validate'))
 })
 
+
 module.exports = authRouter;
