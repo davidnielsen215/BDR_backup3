@@ -9,15 +9,17 @@ import {logout} from '../redux/auth'
      constructor() {
          super()
          this.state = {
-             username: '',
-             password: '',
-             success: ''
+             
+                 username: '',
+                 password: '',
+                 success: ''
+             
          }
         this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     componentDidMount(){
-        this.props.logout()
+        // this.props.logout()
     }
 
     handleChange = input => e => {
@@ -27,7 +29,6 @@ import {logout} from '../redux/auth'
     handleSubmit(e){
         e.preventDefault(e)
         this.props.validate(this.state.username)
-        
     }
 
     render() {

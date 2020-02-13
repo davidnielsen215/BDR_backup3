@@ -145,14 +145,17 @@ export function signup(userInfo) {
     }
 }
 
-export function validate(userInfo){
+export function validate(credentials){
+    console.log(credentials)
     return dispatch => {
-        axios.put("/auth/validate", userInfo)
+        axios.put("/auth/validate", credentials)
         .then(response => {
-            const { user } = response.data;
-            dispatch(validation(user));
+            const { token, user } = response.data;
+            localStorage.token = token
+            localStorage.user = JSON.stringify(user);
             // dispatch(authenticate(user))
-            console.log('put request to the db success')
+            console.log('redux validation success')
+            dispatch(validation(user));
         })
         .catch(err => {
             console.error(err);

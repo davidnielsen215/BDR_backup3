@@ -19,6 +19,7 @@ authRouter.post("/signup", (req, res) => {
 });
 
 authRouter.post("/login", (req, res) => {
+    console.log(req.body)
     User.findOne({username: req.body.username.toLowerCase()}, (err, user) => {
         if (err) return res.status(500).send(err);
         if (!user) {
@@ -34,9 +35,9 @@ authRouter.post("/login", (req, res) => {
 });
 
 authRouter.put('/validate', (req, res) => {
-    User.findOneAndUpdate({name: req.body.username}, {isValidated: true}, {useFindAndModify: false})
+    console.log(req.body)
+    User.findOneAndUpdate({username: req.body.username}, {isValidated: true}, {useFindAndModify: false})
     .then(user => res.send(user)) 
-    .then(console.log('succesfully validated customer'))
     .catch(err => res.status(404).json({success: false})).then(console.log('failed to validate'))
 })
 
