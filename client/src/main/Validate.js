@@ -9,11 +9,11 @@ import {logout} from '../redux/auth'
      constructor() {
          super()
          this.state = {
-             
+             inputs:{
                  username: '',
                  password: '',
                  success: ''
-             
+             }
          }
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -32,9 +32,9 @@ import {logout} from '../redux/auth'
     }
 
     render() {
+        
         return (
             <div>
-                
                 <h2>enter email to validate your account</h2>
                 <input placeholder='email' onChange={this.handleChange('username')} className = "account-input"/>
                 <br/>

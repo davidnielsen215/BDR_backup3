@@ -34,12 +34,11 @@ authRouter.post("/login", (req, res) => {
     });
 });
 
-authRouter.put('/validate', (req, res) => {
+authRouter.put("/validate", (req, res) => {
     console.log(req.body)
     User.findOneAndUpdate({username: req.body.username}, {isValidated: true}, {useFindAndModify: false})
     .then(user => res.send(user)) 
     .catch(err => res.status(404).json({success: false})).then(console.log('failed to validate'))
 })
-
 
 module.exports = authRouter;

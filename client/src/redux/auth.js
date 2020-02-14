@@ -16,7 +16,6 @@ authErrCode: {
     loading: true
 }
 
-
 function authError(key, errCode) {
     return {
         type: "AUTH_ERROR",
@@ -24,7 +23,6 @@ function authError(key, errCode) {
         errCode,
     }
 }
-
 
 const profileAxios = axios.create();
 profileAxios.interceptors.request.use(config => {
@@ -60,8 +58,6 @@ export function checkValid() {
     })
 }
 }
-
-
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
@@ -118,8 +114,6 @@ function validation(user){
     }
 }
 
-
-
 export function signup(userInfo) {
     return dispatch => {
         axios.post("/auth/signup", userInfo)
@@ -145,7 +139,7 @@ export function signup(userInfo) {
     }
 }
 
-export function validate(credentials){
+export function validate(credentials) {
     console.log(credentials)
     return dispatch => {
         axios.put("/auth/validate", credentials)
@@ -165,6 +159,7 @@ export function validate(credentials){
 }
 
 export function login(credentials) {
+    console.log(credentials)
     return dispatch => {
         axios.post("/auth/login", credentials)
             .then(response => {
