@@ -139,16 +139,25 @@ export function signup(userInfo) {
     }
 }
 
+// .put("/auth/validate", credentials)
+
 export function validate(credentials) {
     console.log(credentials)
     return dispatch => {
-        axios.put("/auth/validate", credentials)
-        .then(response => {
+        axios({
+            method: 'post',
+            url: '/auth/validate',
+            headers: {
+                'Content-Type': 'application/json; charset-utf-8'
+            },
+            params:  credentials
+
+        }).then(response => {
             const { token, user } = response.data;
             localStorage.token = token
             localStorage.user = JSON.stringify(user);
             // dispatch(authenticate(user))
-            console.log('redux validation success')
+            console.log(response.data)
             dispatch(validation(user));
         })
         .catch(err => {
@@ -159,7 +168,7 @@ export function validate(credentials) {
 }
 
 export function login(credentials) {
-    console.log(credentials)
+    // console.log(credentials)
     return dispatch => {
         axios.post("/auth/login", credentials)
             .then(response => {

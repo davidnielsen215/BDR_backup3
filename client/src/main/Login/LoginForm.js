@@ -6,7 +6,7 @@ function LoginForm(props) {
     return (
         <div className="form-wrapper">
             <form onSubmit={props.handleSubmit}>
-                <h3>Log in using existing account</h3>
+                <h3>Log in</h3>
                 <input
                     className = "account-input"
                     onChange={props.handleChange}

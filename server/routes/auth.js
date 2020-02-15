@@ -34,11 +34,19 @@ authRouter.post("/login", (req, res) => {
     });
 });
 
-authRouter.put("/validate", (req, res) => {
-    console.log(req.body)
-    User.findOneAndUpdate({username: req.body.username}, {isValidated: true}, {useFindAndModify: false})
-    .then(user => res.send(user)) 
-    .catch(err => res.status(404).json({success: false})).then(console.log('failed to validate'))
+authRouter.post("/validate", (req, res) => {
+    console.log(req.query)
+    User.findOneAndUpdate({username: req.query.username}, {isValidated: true}, {useFindAndModify: false}, (err, user) => {
+        if (err) return res.status(500).send(err);
+        if (!user) {
+            return res.status(403).send({success: false, message: "Email or password are incorrect"})
+        }
+        user.checkPassword(req.body.password, (err, match) => {
+            if (err) return res.status(500).send(err);
+            if (!match) return res.status(401).send({ success: false, message: "Username or password are incorrect" });
+        });
+    })
+    // .then(user => res.send(user)) 
 })
 
 module.exports = authRouter;

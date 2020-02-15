@@ -5,7 +5,7 @@ function SignupForm(props) {
     return (
         <div className="form-wrapper">
             <form onSubmit={props.handleSubmit}>
-                <h3>Sign Up For Best Deal Retailer</h3>
+                <h3>Sign Up</h3>
                 <input  
                     className = "account-input"
                     onChange={props.handleChange}
