@@ -43,8 +43,8 @@ class LoginFormContainer extends Component {
 
         e.preventDefault();
         this.props.login(this.state.inputs);
-        this.clearInputs();
-        this.props.checkValid()
+        // this.props.checkValid(this.state.inputs)
+        // this.clearInputs();
         if (isAuthenticated&&!isValidated) {
             this.setState({validationErr : "Please validate email before accessing account"})
         } 
@@ -58,13 +58,15 @@ class LoginFormContainer extends Component {
             errMsg = "Username and Password do not match";
         } else if (authErrCode > 499) {
             errMsg = "Server error";
+        } else if (authErrCode === 398 ){
+            errMsg = "Email Validation Required"
         }
         return (
             <LoginForm
                 handleChange={this.handleChange.bind(this)}
                 handleSubmit={this.handleSubmit.bind(this)}
                 errMsg={errMsg}
-                validationErr={validationErr}
+                // validationErr={validationErr}
                 {...this.state.inputs} />
             
 

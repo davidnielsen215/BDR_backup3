@@ -49,7 +49,7 @@ export function checkValid() {
         profileAxios.get("/api/profile")
     .then(response => {
         let { user } = response.data;        
-        if(user.isValidated === true){
+        if(user.activated === true){
             dispatch(validation(user))
         }else(console.log('missing requirement: email validation'))
     })
@@ -114,35 +114,47 @@ function validation(user){
     }
 }
 
+function sendEmail(userCredentials){
+    console.log(userCredentials)
+    const port = process.env.Port || 5001
+    const validationUrl = 'http://localhost:3000/validate'
+    const recipient = userCredentials.userInfo.username
+    const sToken = userCredentials.user.secretToken
+    const sender = 'test@bestdealretailer.com'
+    const subject = 'Validate your Email'
+    const text = `Thank you for signing up with Best Deal Retailer. Your validation code is: ${sToken} . Please click the link and follow the instructions to validate your account ${validationUrl}`
+    fetch(`http://127.0.0.1:${port}/send-email?recipient=${recipient}&sender=${sender}&topic=${subject}&text=${text}`)
+    .then(console.log('succesfully sent email'))
+    .catch(err => console.error(err))
+}
+
+//create a new user --hash password && send transactional email containing jwt for email validation
 export function signup(userInfo) {
     return dispatch => {
         axios.post("/auth/signup", userInfo)
             .then(response => {
                 const { token, user } = response.data;
+                const userCredentials = {
+                    user,
+                    userInfo
+                }
                 localStorage.token = token
                 localStorage.user = JSON.stringify(user);
-                dispatch(authenticate(user));
+                dispatch(authenticate(user));   
+                dispatch(sendEmail(userCredentials))
             })
             .catch(err => {
                 console.error(err);
-                dispatch(authError("signup", err.response.status))
+                // dispatch(authError("signup", err.response.status)) 
             })
-            const port = process.env.Port || 5001
-            const validationUrl = 'http://localhost:3000/validate'
-            const recipient = userInfo.username
-            const sender = 'test@bestdealretailer.com'
-            const subject = 'Validate your Email'
-            const text = `Thank you for signing up with Best Deal Retailer. Please click the link and follow the instructions to validate your account: ${validationUrl}`
-            fetch(`http://127.0.0.1:${port}/send-email?recipient=${recipient}&sender=${sender}&topic=${subject}&text=${text}`)
-            .then(console.log('succesfully sent email'))
-            .catch(err => console.error(err))
     }
 }
 
-// .put("/auth/validate", credentials)
 
+
+//post user credetials to validation route containing their usernmame and token to activate their account
 export function validate(credentials) {
-    console.log(credentials)
+    // console.log(credentials)
     return dispatch => {
         axios({
             method: 'post',
@@ -168,14 +180,18 @@ export function validate(credentials) {
 }
 
 export function login(credentials) {
-    // console.log(credentials)
+    console.log(credentials)
     return dispatch => {
         axios.post("/auth/login", credentials)
             .then(response => {
                 const { token, user } = response.data;
+                console.log(response.data)
                 localStorage.token = token
                 localStorage.user = JSON.stringify(user);
                 dispatch(authenticate(user));
+                if(user.activated === true){
+                    dispatch(validation(user))
+                }
             })
             .catch((err) => {
                 console.error(err);

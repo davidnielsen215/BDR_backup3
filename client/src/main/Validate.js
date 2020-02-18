@@ -10,12 +10,10 @@ import {logout} from '../redux/auth'
          super()
          this.state = {
                  username: '',
-                 password: '',
+                 token: '',
          }
         this.handleSubmit = this.handleSubmit.bind(this)
-        // this.handleUser = this.handleUser.bind(this)
-        // this.handlePass = this.handlePass.bind(this)
-        this.handleChange= this.handleChange.bind(this)
+        this.handleChange = this.handleChange.bind(this)
     }
 
     componentDidMount(){
@@ -39,11 +37,11 @@ import {logout} from '../redux/auth'
         
         return (
             <div>
-                <h2>enter email to validate your account</h2>
+                <h2 style={{paddingTop: '15%'}}>enter email to validate your account</h2>
                 <input placeholder='email' onChange={this.handleChange} name='username' value={this.state.username} className = "account-input"/>
                 <br/>
-                <input placeholder='password' type="password" onChange={this.handleChange}
-                value={this.state.password} name="password" className="account-input"/>
+                <input placeholder='validation code'  onChange={this.handleChange}
+                value={this.state.token} name="token" className="account-input"/>
                 <br/>
                 <button onClick={this.handleSubmit} className="form-btn">validate</button>
             {/* <p>{this.state.success}</p> */}

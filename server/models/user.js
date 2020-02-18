@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt")
+const randomString = require('randomstring')
 
 const userSchema = new Schema({
     username: {
@@ -17,20 +18,24 @@ const userSchema = new Schema({
         type: Boolean,
         default: false
     },
-    isValidated: {
+    activated: {
         type: Boolean, 
         default: false
+    },
+    secretToken: {
+        type: String
     }
 });
 
 userSchema.pre("save", function (next) {
-    const user = this;
+    const user = this; 
     if (!user.isModified("password")) return next()
     bcrypt.hash(user.password, 10, (err, hash) => {
         if (err) return next(err)
         user.password = hash
         next()
     })
+    user.secretToken = randomString.generate(10)
 })
 
 userSchema.methods.checkPassword = function(passwordAttempt, callback) {

@@ -3,6 +3,7 @@ const User = require("../models/user");
 const authRouter = express.Router();
 const jwt = require("jsonwebtoken");
 
+
 authRouter.post("/signup", (req, res) => {
     User.findOne({username: req.body.username}, (err, existingUser) => {
         if (err) return res.status(500).send({success: false, err});
@@ -25,9 +26,13 @@ authRouter.post("/login", (req, res) => {
         if (!user) {
             return res.status(403).send({success: false, message: "Email or password are incorrect"})
         }
+        if (!user.activated){
+            return res.status(398).send({success: false, message: "You must verify your email first", })
+            .send(console.log('email verification required'))
+        }
         user.checkPassword(req.body.password, (err, match) => {
             if (err) return res.status(500).send(err);
-            if (!match) return res.status(401).send({ success: false, message: "Username or password are incorrect" });
+            if (!match) return res.status(401).send({ success: false, message: "Email or password are incorrect" });
             const token = jwt.sign(user.withoutPassword(), process.env.SECRET);
             return res.send({ token: token, user: user.withoutPassword(), success: true })
         });
@@ -36,16 +41,22 @@ authRouter.post("/login", (req, res) => {
 
 authRouter.post("/validate", (req, res) => {
     console.log(req.query)
-    User.findOneAndUpdate({username: req.query.username}, {isValidated: true}, {useFindAndModify: false}, (err, user) => {
-        if (err) return res.status(500).send(err);
-        if (!user) {
+    User.findOneAndUpdate({secretToken: req.query.token}, {activated: true}, {useFindAndModify: false}, (err, user)=> {
+        if (!req.query.username) {
             return res.status(403).send({success: false, message: "Email or password are incorrect"})
         }
-        user.checkPassword(req.body.password, (err, match) => {
-            if (err) return res.status(500).send(err);
-            if (!match) return res.status(401).send({ success: false, message: "Username or password are incorrect" });
-        });
+        return res.send({user, success: true})
     })
+    // User.findOneAndUpdate({username: req.query.username}, {isValidated: true}, {useFindAndModify: false}, (err, user) => {
+    //     if (err) return res.status(500).send(err);
+    //     if (!user) {
+    //         return res.status(403).send({success: false, message: "Email or password are incorrect"})
+    //     }
+    //     user.checkPassword(req.body.password, (err, match) => {
+    //         if (err) return res.status(500).send(err);
+    //         if (!match) return res.status(401).send({ success: false, message: "Username or password are incorrect" });
+    //     });
+    // })
     // .then(user => res.send(user)) 
 })
 
