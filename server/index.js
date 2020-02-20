@@ -15,7 +15,6 @@ app.use(cors())
 sgMail.setApiKey(process.env.API_KEY)
 
 app.get('/send-email', (req,res) => {
-    
     //Get Variables from query string in the search bar
     const { recipient, sender, topic, text } = req.query; 
 
