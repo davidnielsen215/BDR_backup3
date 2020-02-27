@@ -37,8 +37,11 @@ class SubscriptionListContainer extends Component {
 
     render() {
         return (
+            
             <SubscriptionList
             subscriptions={this.props.subscriptions}/>
+            
+            
         )
     }
 }

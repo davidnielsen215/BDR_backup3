@@ -7,12 +7,14 @@ import {checkValid} from '../redux/auth'
 // import {isValidated} from '../redux/auth'
 import '../styles/signup.css'
 
+import Admin from './Admin'
 import ProtectedRoute from "./ProtectedRoute"
 import Signup from "./Signup";
 import Login from "./Login";
 import SubscriptionList from "./Subscriptions";
 import Profile from "./Profile";
 import Validate from './Validate'
+import Recurly from './Recurly'
 import EmailMsg from './Signup/EmailMsg'
 
 class App extends Component {
@@ -29,6 +31,7 @@ class App extends Component {
         return (
             
             <div className="app-wrapper">
+                <Route path='/admin'  component={Admin}/>
                 <Navbar/>
                 {loading ? 
                 <div><i><p>...Loading User Data</p></i></div>:
@@ -51,6 +54,7 @@ class App extends Component {
                             } />
                         <ProtectedRoute path="/subscriptions" component={SubscriptionList}/>
                         <ProtectedRoute path="/profile" component={Profile}/>
+                        <ProtectedRoute path="/recurly" component={Recurly}/>
                 </Switch>
                 }
             </div>

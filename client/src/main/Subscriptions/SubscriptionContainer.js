@@ -14,7 +14,7 @@ class SubscriptionContainer extends Component {
     }
 
     render() {
-        return (
+        return (            
             <Subscription
                 handleCompleted={this.handleCompleted.bind(this)}
                 handleRemove={this.handleRemove.bind(this)}

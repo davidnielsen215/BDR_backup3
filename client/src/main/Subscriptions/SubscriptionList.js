@@ -20,7 +20,7 @@ function SubscriptionList(props) {
    // within this component is the AddSubscription component
    //this is where the subscriptions are created in the redux store and then sent to the DB
     return (
-        <div style={{border: '5px solid lime'}}>
+        <div style={{border: '1px solid lime'}}>
             <AddSubscriptionFormContainer/>
             {subscriptions}
         </div>

@@ -1,6 +1,7 @@
 /* Entire application wrapper */
 *{
   margin: 0px;
+  font-family: 'Nunito'
 }
 
   .app-wrapper {

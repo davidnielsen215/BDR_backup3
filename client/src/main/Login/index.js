@@ -32,7 +32,8 @@ class LoginFormContainer extends Component {
         this.setState({
             inputs: {
                 username: "",
-                password: ""
+                password: "",
+                validationErr: ''
             }
         })
     }
@@ -66,10 +67,8 @@ class LoginFormContainer extends Component {
                 handleChange={this.handleChange.bind(this)}
                 handleSubmit={this.handleSubmit.bind(this)}
                 errMsg={errMsg}
-                // validationErr={validationErr}
+                validationErr={validationErr}
                 {...this.state.inputs} />
-            
-
         )
     }
 }
