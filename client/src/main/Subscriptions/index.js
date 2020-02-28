@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import SubscriptionList from "./SubscriptionList";
 import {connect} from "react-redux";
 import {loadSubscriptions} from "../../redux/subscription";
+import Navbar from '../Navbar'
 
 class SubscriptionListContainer extends Component {
 
@@ -37,10 +38,12 @@ class SubscriptionListContainer extends Component {
 
     render() {
         return (
-            
+            <div>
+            <Navbar/>
             <SubscriptionList
             subscriptions={this.props.subscriptions}/>
             
+            </div>
             
         )
     }

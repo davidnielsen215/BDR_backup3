@@ -32,17 +32,23 @@ class App extends Component {
             
             <div className="app-wrapper">
                 <Route path='/admin'  component={Admin}/>
-                <Navbar/>
+                {/* <Navbar/> */}
                 {loading ? 
                 <div><i><p>...Loading User Data</p></i></div>:
                 <Switch>
                         <Route exact path="/" render={ props => isAuthenticated&&isValidated ? 
                             <Redirect to="/profile"/> :
-                            <Signup {...props} />
+                            <Admin {...props} />
                         }/>
+
+                        {/* <Route exact path="/admin" render={ props => isAuthenticated&&isValidated ? 
+                            <Redirect to="/profile"/> :
+                            <Admin {...props} />
+                        }/> */}
+                        
                         <Route path="/login" render={ props => isAuthenticated&&isValidated ?
                             <Redirect to="/profile"/> :
-                            <Login {...props}/> 
+                            <Admin {...props}/> 
                         } />
                         <Route path ='/validate' render={props => isValidated&&isAuthenticated ?
                             <Redirect to='/profile'/> :

@@ -9,7 +9,8 @@ const initialState = {
 },
 authErrCode: {
     signup: "",
-    login: ""
+    login: "",
+    validate: ""
 },
     isValidated: false,
     isAuthenticated: false,
@@ -140,21 +141,17 @@ export function signup(userInfo) {
                 }
                 localStorage.token = token
                 localStorage.user = JSON.stringify(user);
-                dispatch(authenticate(user));   
+                // dispatch(authenticate(user));   
                 dispatch(sendEmail(userCredentials))
             })
             .catch(err => {
                 console.error(err);
-                // dispatch(authError("signup", err.response.status)) 
+                dispatch(authError("signup", err.response.status)) 
             })
     }
 }
 
-
-
-//post user credetials to validation route containing their usernmame and token to activate their account
 export function validate(credentials) {
-    // console.log(credentials)
     return dispatch => {
         axios({
             method: 'post',
@@ -165,16 +162,15 @@ export function validate(credentials) {
             params:  credentials
 
         }).then(response => {
+            // console.log(response.data)
             const { token, user } = response.data;
             localStorage.token = token
             localStorage.user = JSON.stringify(user);
-            // dispatch(authenticate(user))
-            console.log(response.data)
             dispatch(validation(user));
         })
         .catch(err => {
-            console.error(err);
-            dispatch(authError("signup", err.response.status))
+            console.error(err, "this is the validation err");
+            dispatch(authError("validate", err.response.status))
         })
     }
 }
