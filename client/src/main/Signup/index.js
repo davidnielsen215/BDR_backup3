@@ -78,7 +78,7 @@ class SignupFormContainer extends Component {
         }).then(res => {
             // (this.props.history.push('/emailMsg'))
         }).catch(err => {
-            console.log('Failed to post contact')
+            console.log('Hubspot API Post fail')
             console.log(err)
         })
     }
@@ -87,9 +87,9 @@ class SignupFormContainer extends Component {
         let authErrCode = this.props.authErrCode.signup
         let errMsg = ""
         if (authErrCode < 500 && authErrCode > 399){
-            errMsg = "Please use a different email address"
+            errMsg = "Email address already in use"
         } else if (authErrCode > 499) {
-            errMsg = "Please enter valid information"
+            errMsg = "Invalid information, please try again"
         }
         
         return (

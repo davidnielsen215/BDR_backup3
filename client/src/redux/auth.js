@@ -115,7 +115,7 @@ function validation(user){
     }
 }
 
-function sendEmail(userCredentials){
+export function sendEmail(userCredentials){
     console.log(userCredentials)
     const port = process.env.Port || 5001
     const validationUrl = 'http://localhost:3000/validate'
@@ -142,12 +142,11 @@ export function signup(userInfo) {
                 localStorage.token = token
                 localStorage.user = JSON.stringify(user);
                 // dispatch(authenticate(user));   
-                dispatch(sendEmail(userCredentials))
+                dispatch(sendEmail(userCredentials));
+                
             })
-            .catch(err => {
-                console.error(err);
-                dispatch(authError("signup", err.response.status)) 
-            })
+            .catch(err => dispatch(authError("signup", err.response.status)))
+            .catch(err => dispatch(authError("signup", err)))
     }
 }
 
