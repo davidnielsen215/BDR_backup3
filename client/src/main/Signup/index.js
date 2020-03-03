@@ -76,7 +76,7 @@ class SignupFormContainer extends Component {
                 ]   
             }
         }).then(res => {
-            // (this.props.history.push('/emailMsg'))
+            // (history.push('/emailMsg'))
         }).catch(err => {
             console.log('Hubspot API Post fail')
             console.log(err)

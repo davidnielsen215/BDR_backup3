@@ -58,6 +58,7 @@ class App extends Component {
                             <Redirect to='/profile'/> :
                             <EmailMsg {...props}/>
                             } />
+                        
                         <ProtectedRoute path="/subscriptions" component={SubscriptionList}/>
                         <ProtectedRoute path="/profile" component={Profile}/>
                         <ProtectedRoute path="/recurly" component={Recurly}/>
