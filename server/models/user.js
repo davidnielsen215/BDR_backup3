@@ -35,7 +35,7 @@ userSchema.pre("save", function (next) {
         user.password = hash
         next()
     })
-    user.secretToken = randomString.generate(10)
+    user.secretToken = randomString.generate(14)
 })
 
 userSchema.methods.checkPassword = function(passwordAttempt, callback) {

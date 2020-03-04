@@ -134,6 +134,7 @@ export function signup(userInfo) {
     return dispatch => {
         axios.post("/auth/signup", userInfo)
             .then(response => {
+        
                 const { token, user } = response.data;
                 const userCredentials = {
                     user,
@@ -143,7 +144,7 @@ export function signup(userInfo) {
                 localStorage.user = JSON.stringify(user);
                 // dispatch(authenticate(user));   
                 dispatch(sendEmail(userCredentials));
-                
+                // dispatch(authError("signup", response.status))
             })
             .catch(err => dispatch(authError("signup", err.response.status)))
             .catch(err => dispatch(authError("signup", err)))
@@ -161,14 +162,15 @@ export function validate(credentials) {
             params:  credentials
 
         }).then(response => {
-            // console.log(response.data)
+            
             const { token, user } = response.data;
             localStorage.token = token
             localStorage.user = JSON.stringify(user);
             dispatch(validation(user));
+            dispatch(authError('validate', response.status))
         })
         .catch(err => {
-            console.error(err, "this is the validation err");
+            console.error(err);
             dispatch(authError("validate", err.response.status))
         })
     }

@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import {validate} from '../redux/auth'
 import {logout} from '../redux/auth'
+import Navbar from './Navbar'
 
 
  class Validate extends Component {
@@ -34,17 +35,27 @@ import {logout} from '../redux/auth'
     }
 
     render() {
+        let authErrCode = this.props.authErrCode.validate
+        let errMsg = ""
+        if (authErrCode < 500 && authErrCode > 399){
+            errMsg = "Validation error: make sure your username and validation code are correct"
+        } else if (authErrCode < 399) {
+            errMsg = "Account validation success: you may log in to your account"
+        }
+        if (!authErrCode)
+            errMsg = ""
         
         return (
             <div>
-                <h2 style={{paddingTop: '15%'}}>enter email to validate your account</h2>
+                <Navbar/>
+                <h2 style={{paddingTop: '10%'}}>enter validation token to activate your account</h2>
                 <input placeholder='email' onChange={this.handleChange} name='username' value={this.state.username} className = "account-input"/>
                 <br/>
                 <input placeholder='validation code'  onChange={this.handleChange}
                 value={this.state.token} name="token" className="account-input"/>
                 <br/>
                 <button onClick={this.handleSubmit} className="form-btn">validate</button>
-            {/* <p>{this.state.success}</p> */}
+                <p>{errMsg}</p>
             </div>
         )
     }

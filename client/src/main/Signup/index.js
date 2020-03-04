@@ -87,10 +87,15 @@ class SignupFormContainer extends Component {
         let authErrCode = this.props.authErrCode.signup
         let errMsg = ""
         if (authErrCode < 500 && authErrCode > 399){
-            errMsg = "Email address already in use"
+            errMsg = "Account already in use"
         } else if (authErrCode > 499) {
             errMsg = "Invalid information, please try again"
         }
+        else if (authErrCode != {}) {
+        errMsg = "Thanks for signing up! Check your email to validate your account"
+        }
+        if (!authErrCode)
+            errMsg = ""
         
         return (
             <SignupForm
